@@ -1,0 +1,32 @@
+###服务端口号
+server:
+  port: 8100
+
+###服务名称
+spring:
+  application:
+    name: app-eureka-center
+  security:
+    user:
+      name: sky
+      password: 123456
+
+eureka:
+  instance:
+    #注册中心地址 本地调试要配置hosts映射，否则注册集群失效
+    hostname: eureka1
+    prefer-ip-address: true #将自己的ip地址注册到Eureka服务中
+    ip-address: 127.0.0.1
+
+  ###客户端调用地址
+  client:
+    serviceUrl:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@eureka2:9100/eureka/
+    ###是否将自己注册到Eureka服务中,因为该应用本身就是注册中心，不需要再注册自己（集群的时候为true）
+    register-with-eureka: true
+    ###是否从Eureka中获取注册信息,因为自己为注册中心,不会在该应用中的检索服务信息
+    fetch-registry: true
+
+  server:
+    enable-self-preservation: false #禁用自我保护模式
+    eviction-interval-timer-in-ms: 2000 # 连接等待时间2秒
