@@ -1,8 +1,8 @@
 package cn.sky.order.service;
 
 import cn.sky.order.entity.Item;
+import cn.sky.order.feign.ItemFeignClient;
 import cn.sky.order.properties.OrderProperties;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,6 +13,9 @@ public class ItemService {
     // Spring框架对RESTful方式的http请求做了封装，来简化操作
     @Autowired
     private RestTemplate restTemplate;
+
+    @Autowired
+    private ItemFeignClient itemFeignClient;
 
     /*@Value("${myspcloud.item.url}")
     private String itemUrl;*/
@@ -35,10 +38,11 @@ public class ItemService {
      * @param id
      * @return
      */
-    @HystrixCommand(fallbackMethod = "queryItemByIdFallbackMethod")
+    //@HystrixCommand(fallbackMethod = "queryItemByIdFallbackMethod")
     public Item queryItemById3(Long id) {
         String itemUrl = "http://app-item/item/{id}";
-        Item result = restTemplate.getForObject(itemUrl, Item.class, id);
+        //Item result = restTemplate.getForObject(itemUrl, Item.class, id);
+        Item result = itemFeignClient.queryItemById(id);
         System.out.println("===========HystrixCommand queryItemById-线程池名称：" + Thread.currentThread().getName() + "订单系统调用商品服务,result:" + result);
         return result;
     }
