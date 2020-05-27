@@ -13,6 +13,7 @@
         <module>microservice-order</module>
         <module>cloud-eureka1</module>
         <module>cloud-eureka2</module>
+        <module>cloud-api-gateway</module>
     </modules>
 
     <parent>
