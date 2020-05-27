@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 以myspcloud开头的配置被匹配到
- * @author Evan
+ * @author sky
  */
 @Component
 @ConfigurationProperties(prefix="myspcloud")

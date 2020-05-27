@@ -12,7 +12,7 @@ import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * @author Evan
+ * @author sky
  */
 @SpringBootApplication//申明这是一个Spring Boot项目
 @EnableEurekaClient
